@@ -23,6 +23,7 @@ func (grw GzipResponseWriter) Header() http.Header {
 }
 
 func (grw GzipResponseWriter) WriteHeader(code int) {
+    grw.Header().Del(HeaderContentLength)
     grw.w.WriteHeader(code)
 }
 
@@ -37,7 +38,6 @@ type GzipHandler struct {
 func (gh GzipHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     if strings.Contains(r.Header.Get(HeaderAcceptEncoding), "gzip") {
         headers := w.Header()
-        headers.Del(HeaderContentLength)
         headers.Set(HeaderContentEncoding, "gzip")
         headers.Set(HeaderVary, HeaderAcceptEncoding)
         gz := gzip.NewWriter(w)
