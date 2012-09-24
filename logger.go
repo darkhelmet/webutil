@@ -11,11 +11,6 @@ type LoggerHandler struct {
 }
 
 func (lh LoggerHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-    ip := r.RemoteAddr
-    realIp := r.Header.Get("X-Real-Ip")
-    if realIp != "" {
-        ip = realIp
-    }
-    lh.Logger.Printf("%s -> %s %s\n", ip, r.Method, r.URL)
+    lh.Logger.Printf("%s %s\n", r.Method, r.URL)
     lh.H.ServeHTTP(w, r)
 }
