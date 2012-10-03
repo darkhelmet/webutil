@@ -22,6 +22,8 @@ func (hh HerokuHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
             info[key] = value
         }
     }
-    hh.Logger.Printf("%sn", info)
+    if len(info) > 0 {
+        hh.Logger.Printf("%sn", info)
+    }
     hh.H.ServeHTTP(w, r)
 }
