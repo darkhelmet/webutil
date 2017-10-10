@@ -63,6 +63,7 @@ func (klh KeyLoggerHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	record := &KeyLogRecord{
 		ResponseWriter: w,
+		status:         200,
 		method:         r.Method,
 		path:           r.RequestURI,
 		host:           host,
